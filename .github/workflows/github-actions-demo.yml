@@ -20,12 +20,11 @@ jobs:
     - name: Check Python version
       run: python --version
 
-    # - name: Install dependencies
-    #   run: pip install -r requirements.txt
+    - name: Install dependencies
+      run: pip install -r requirements.txt
 
     - name: Run script
       run: python main.py
 
-
-    # - name: Run tests
-    #   run: pytest
+    - name: Run tests
+      run: pytest
