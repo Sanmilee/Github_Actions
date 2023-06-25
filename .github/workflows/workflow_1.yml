@@ -11,6 +11,5 @@ jobs:
     steps:
       - name: Set and use a variable
         run: |
-          MY_STEP_VARIABLE=step_value
+          MY_STEP_VARIABLE=green
           echo $MY_STEP_VARIABLE
-    
