@@ -8,8 +8,11 @@ jobs:
     name: Test Checkout
     runs-on: ubuntu-latest
 
+    env:
+      JOB_VARIABLE: red
+
     steps:
-      - name: Set and use a variable
-        run: |
-          MY_STEP_VARIABLE=green
-          echo $MY_STEP_VARIABLE
+      - name: Use the variable
+        run: echo $JOB_VARIABLE
+
+        
