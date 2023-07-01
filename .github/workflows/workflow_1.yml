@@ -2,14 +2,17 @@
 
 name: Python-actions-sample
 on: [push]
+
+env:
+  JOB_VARIABLE: blue
+
 jobs:
 
   sample-job-1:
     name: Test Checkout
     runs-on: ubuntu-latest
 
+    
     steps:
-      - name: Set and use a variable
-        run: |
-          MY_STEP_VARIABLE=green
-          echo $MY_STEP_VARIABLE
+      - name: Use the variable
+        run: echo $JOB_VARIABLE
