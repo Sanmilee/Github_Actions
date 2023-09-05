@@ -29,5 +29,7 @@ jobs:
 
 
     - name: Run bash script
-      run: ./test.sh
-      
+      run: |
+        # make test.sh executable
+        chmod +x test.sh
+        ./test.sh
