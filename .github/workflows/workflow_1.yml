@@ -32,6 +32,7 @@ jobs:
       
   job-3:
     name: Run Python Script
+    needs: job-2
     runs-on: macOS-latest
 
     steps:
