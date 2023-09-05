@@ -17,6 +17,7 @@ jobs:
 
   job-2:
     name: Test Python
+    needs: job-1
     runs-on: windows-latest
 
     steps:
@@ -53,7 +54,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
       - name: Run bash script
         run: |
           # make test.sh executable
