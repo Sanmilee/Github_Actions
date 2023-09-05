@@ -34,6 +34,9 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
@@ -48,6 +51,9 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
       - name: Run bash script
         run: |
           # make test.sh executable
