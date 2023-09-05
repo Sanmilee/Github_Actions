@@ -8,7 +8,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-      
+
     - name: List files in the repository 
       run: |
         ls ${{ github.workspace }}
@@ -24,5 +24,9 @@ jobs:
       run: python --version
 
 
-    - name: Run script
+    - name: Run python script
       run: python main.py
+
+
+    - name: Run bash script
+      run: ./test.sh
