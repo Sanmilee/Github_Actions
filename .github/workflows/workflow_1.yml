@@ -1,39 +1,56 @@
 name: Python-actions-sample
 on: [push]
 jobs:
-  example-job-1:
-    name: Save output
+
+  job-1:
+    name: Test Checkout
     runs-on: ubuntu-latest
 
     steps:
-      - name: create output log
-        shell: bash
-        run: |
-          # set the result of 1 + 1 (2) into a log file
-          expr 1 + 1 > output.log
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Upload output file
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-log-file  # name of file
-          path: output.log
+      - name: List files in the repository 
+        run: |
+          ls ${{ github.workspace }}
 
 
   job-2:
-    name: Download File
-    needs: example-job-1
-    runs-on: ubuntu-latest
+    name: Test Python
+    runs-on: windows-latest
 
     steps:
-      - name: Download log file
-        uses: actions/download-artifact@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
         with:
-          name: output-log-file
+          python-version: '3.10'
 
-      - name: Print the final result
-        shell: bash
-        run: |
-          value=`cat output.log`
-          echo "The result is $value"
+      - name: Check Python version
+        run: python --version
   
       
+  job-3:
+    name: Run Python Script
+    runs-on: macOS-latest
+
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run script
+        run: python main.py
+        
+            
+  job-4:
+    name: Run Bash Script
+    runs-on: macOS-latest
+
+    steps:
+      - name: Run bash script
+        run: |
+          # make test.sh executable
+          chmod +x test.sh
+          ./test.sh     
+            
