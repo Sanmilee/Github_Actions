@@ -13,43 +13,8 @@ jobs:
         run: |
           echo "action_state=yellow" >> "$GITHUB_ENV"
 
+
       - name: Use the value
-        if: steps.step_one.outputs.action_state == 'yellow'
+        id: step_two
         run: |
-          echo " $action_state "
-
-
-      - name: Use the valuesss
-        run: |
-          echo " $action_state "
-
-
-
-          
-      # - name: Use the value
-      #   id: step_two
-      #   run: |
-      #     # printf '%s\n' "$action_state"
-      #     echo " $action_state "
-
-      # - name: Set should_run Variable
-      #   id: set_should_run
-      #   run: echo "::set-output name=should_run::go"
-  
-      # - name: Conditional Hello World
-      #   if: steps.set_should_run.outputs.should_run == 'go'
-      #   run: echo "Hello, World!"
-
-    #   - name: Check Condition
-    #     id: check_condition
-    #     run: |
-    #       should_run=true 
-    #       echo " $should_run " 
-
-
-    #   - name: echo World
-    #     run: echo " ${{ steps.check_condition.outputs.should_run}} "
-
-    #   - name: Conditional Hello World
-    #     if: ${{ steps.check_condition.outputs.should_run == 'true' }}
-    #     run: echo "Hello, World!"
+          echo "The value is: $action_state" 
