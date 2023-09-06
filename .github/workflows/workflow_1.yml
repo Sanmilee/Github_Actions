@@ -12,7 +12,7 @@ jobs:
     name: Test Checkout
     runs-on: ubuntu-latest
 
-    
     steps:
       - name: Use the variable
         run: echo $JOB_VARIABLE
+
