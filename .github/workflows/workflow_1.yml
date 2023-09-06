@@ -9,7 +9,9 @@ jobs:
     steps:
       - name: Check Condition
         id: check_condition
-        run: echo "should_run=true" 
+        run: |
+          should_run=true 
+          echo " $should_run " 
 
 
       - name: echo World
