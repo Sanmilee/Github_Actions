@@ -13,4 +13,3 @@ jobs:
         run: |
           MY_STEP_VARIABLE=step_value
           echo $MY_STEP_VARIABLE
-    
