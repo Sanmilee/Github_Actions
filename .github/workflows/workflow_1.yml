@@ -1,4 +1,5 @@
-name: Python-actions-sample
+
+    # steps:name: Python-actions-sample
 on: [push]
 jobs:
 
@@ -7,15 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Branch Name
-        id: branch_check
-        run: echo "::set-output name=should_run::${{ github.ref == 'refs/heads/main' }}"
+      - name: Set should_run Variable
+        id: set_should_run
+        run: echo "::set-output name=should_run::go"
   
       - name: Conditional Hello World
-        if: steps.branch_check.outputs.should_run == 'true'
+        if: steps.set_should_run.outputs.should_run == 'go'
         run: echo "Hello, World!"
 
-    # steps:
     #   - name: Check Condition
     #     id: check_condition
     #     run: |
