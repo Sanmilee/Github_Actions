@@ -11,8 +11,10 @@ jobs:
         id: check_condition
         run: echo "should_run=true" 
 
-        
+
+      - name: echo World
+        run: echo " ${{ steps.check_condition.outputs.should_run}} "
+
       - name: Conditional Hello World
         if: ${{ steps.check_condition.outputs.should_run == 'true' }}
         run: echo "Hello, World!"
-
