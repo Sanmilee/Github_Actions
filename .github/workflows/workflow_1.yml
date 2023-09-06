@@ -8,16 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set the value in bash
-        id: step_one
-        run: |
-          {
-            echo 'JSON_RESPONSE<<EOF'
-            curl https://example.com
-            echo EOF
-          } >> "$GITHUB_ENV"
+      - name: Set color
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
 
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "The value is: $JSON_RESPONSE" 
+      - name: Get color
+        env:
+          SELECTED_COLOR: ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
+        run: echo "The selected color is $SELECTED_COLOR"
