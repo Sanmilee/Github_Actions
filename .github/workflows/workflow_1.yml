@@ -7,16 +7,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Condition
-        id: check_condition
-        run: |
-          should_run=true 
-          echo " $should_run " 
-
-
-      - name: echo World
-        run: echo " ${{ steps.check_condition.outputs.should_run}} "
-
+      - name: Check Branch Name
+        id: branch_check
+        run: echo "::set-output name=should_run::${{ github.ref == 'refs/heads/main' }}"
+  
       - name: Conditional Hello World
-        if: ${{ steps.check_condition.outputs.should_run == 'true' }}
+        if: steps.branch_check.outputs.should_run == 'true'
         run: echo "Hello, World!"
+
+    # steps:
+    #   - name: Check Condition
+    #     id: check_condition
+    #     run: |
+    #       should_run=true 
+    #       echo " $should_run " 
+
+
+    #   - name: echo World
+    #     run: echo " ${{ steps.check_condition.outputs.should_run}} "
+
+    #   - name: Conditional Hello World
+    #     if: ${{ steps.check_condition.outputs.should_run == 'true' }}
+    #     run: echo "Hello, World!"
