@@ -15,8 +15,7 @@ jobs:
   sample-job-2:
     name: Test check
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'Sanmilee ' }}
-
+    if: ${{ github.actor == 'Sanmilee' }}
 
     steps:
       - name: prod-check
