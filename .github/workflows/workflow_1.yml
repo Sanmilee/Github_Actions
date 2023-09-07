@@ -9,8 +9,18 @@ jobs:
     steps:
       - name: Check Branch Name
         id: branch_check
-        run: echo "::set-output name=should_run::${{ github.ref == 'refs/heads/main' }}"
+        run: echo "should_run=${{ github.ref == 'refs/heads/main' }}"
   
       - name: Conditional Hello World
         if: steps.branch_check.outputs.should_run == 'true'
-        run: echo "Hello, World!"
+        run: |
+          echo "Hello, World!"
+
+
+      # - name: Check Branch Name
+      #   id: branch_check
+      #   run: echo "::set-output name=should_run::${{ github.ref == 'refs/heads/main' }}"
+
+      # - name: Conditional Hello World
+      #   if: steps.branch_check.outputs.should_run == 'true'
+      #   run: echo "Hello, World!"
