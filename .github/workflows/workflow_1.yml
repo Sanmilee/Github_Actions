@@ -3,24 +3,11 @@ on: [push]
 jobs:
 
   sample-job-1:
-    name: Test Checkout
+    name: Test check
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
 
     steps:
-      - name: Check Branch Name
-        id: branch_check
-        run: echo "should_run=${{ github.ref == 'refs/heads/main' }}" >> $GITHUB_OUTPUT
-  
-      - name: Conditional Hello World
-        if: steps.branch_check.outputs.should_run == true
+      - name: prod-check
         run: |
-          echo "Hello, World!"
-
-
-      # - name: Check Branch Name
-      #   id: branch_check
-      #   run: echo "::set-output name=should_run::${{ github.ref == 'refs/heads/main' }}"
-
-      # - name: Conditional Hello World
-      #   if: steps.branch_check.outputs.should_run == 'true'
-      #   run: echo "Hello, World!"
+          echo "Deploying to production server on branch $GITHUB_REF"
