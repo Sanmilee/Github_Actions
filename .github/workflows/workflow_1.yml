@@ -1,18 +1,15 @@
 # steps:
 
-  name: Python-actions-sample
-  on: [push]
-  
-  env:
-    JOB_VARIABLE: blue
-  
-  jobs:
-  
-    sample-job-1:
-      name: Test Checkout
-      runs-on: windows-latest
-  
-      steps:
-        - run: dir
-          if: runner.os == 'windows'  # or: ${{ runner.os == 'windows' }}
-  
+name: Python-actions-sample
+on: [push]
+
+
+jobs:
+
+  sample-job-1:
+    name: Test Checkout
+    runs-on: windows-latest
+
+    steps:
+      - run: dir
+        if: runner.os == 'windows'  # or: ${{ runner.os == 'windows' }}
