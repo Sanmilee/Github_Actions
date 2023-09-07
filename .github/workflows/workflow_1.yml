@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Check Branch Name
         id: branch_check
-        run: echo "should_run=${{ github.ref == 'refs/heads/main' }}" >> $GITHUB_OUTPUT
+        run: echo "should_run=${{ github.ref == 'refs/heads/main' }}"
   
       - name: Conditional Hello World
         if: steps.branch_check.outputs.should_run == true
