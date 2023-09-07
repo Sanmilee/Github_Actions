@@ -11,3 +11,8 @@ jobs:
       - name: prod-check
         run: |
           echo "Deploying to production server on branch $GITHUB_REF"
+
+      - name: prod-check-2
+        run: |
+          echo "Deploying to production server on branch $GITHUB_REF"
+          
