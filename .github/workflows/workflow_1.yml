@@ -12,4 +12,11 @@ jobs:
 
     steps:
       - run: dir
-        if: runner.os == 'ubuntu'  # ${{ runner.os == 'windows' }}
+        if: runner.os == 'windows'  # ${{ runner.os == 'windows' }}
+
+
+      - name: test env expression
+        env:
+          MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && 'for_main_branch' || 'other_branches' }}
+          # MY_ENV_VAR is set to for_main_branch if branch is main, or other_branches if not
+        run: echo $MY_ENV_VAR
