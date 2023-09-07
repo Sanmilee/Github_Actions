@@ -25,4 +25,4 @@ jobs:
     steps:
       - name: prod-checks
         run: |
-          echo "Deploying to production server on branch $github.actor"
+          echo "Deploying to production server on branch ${{ github.actor}} "
