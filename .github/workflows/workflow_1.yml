@@ -5,7 +5,9 @@ jobs:
   sample-job-1:
     name: Test check
     runs-on: ubuntu-latest
-    if: ${{ github.ref != 'refs/heads/main' }}
+    if: ${{ github.actor == 'octocat' }}
+    # the 2 steps won'r run unless branch is main
+
 
     steps:
       - name: prod-check
@@ -13,5 +15,14 @@ jobs:
           echo "Deploying to production server on branch $GITHUB_REF"
 
       - name: prod-check-2
+        run: echo "Deploying to production server on behalf of $github.actor"
+
+
+  ample-job-1:
+    name: Test checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: prod-checks
         run: |
           echo "Deploying to production server on branch $GITHUB_REF"
