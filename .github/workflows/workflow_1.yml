@@ -12,4 +12,4 @@ jobs:
 
     steps:
       - run: dir
-        if: runner.os == 'windows'  # or: ${{ runner.os == 'windows' }}
+        if: runner.os == 'windows'  # ${{ runner.os == 'windows' }}
