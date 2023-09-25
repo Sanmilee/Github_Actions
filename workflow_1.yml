@@ -53,3 +53,89 @@ jobs:
     #   - name: Conditional Hello World
     #     if: ${{ steps.check_condition.outputs.should_run == 'true' }}
     #     run: echo "Hello, World!"
+
+
+
+
+###################################################
+###################################################
+###################################################
+###################################################
+###################################################
+
+
+
+name: 'Link Checker: All English'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+# This modifies the default permissions granted to `GITHUB_TOKEN`. 
+# This will vary depending on the needs of your workflow. For more information, 
+# see "[AUTOTITLE](/actions/using-jobs/assigning-permissions-to-jobs)."
+#
+# In this example, the `pull-requests: read` permission is needed for the `trilom/file-changes-action` 
+# action that is used later in this workflow.
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# The `concurrency` key ensures that only a single workflow in the same concurrency group will run at the same time. 
+# For more information, see "[AUTOTITLE](/actions/using-jobs/using-concurrency)."
+# `concurrency.group` generates a concurrency group name from the workflow name and pull request information. 
+# The `||` operator is used to define fallback values. 
+# `concurrency.cancel-in-progress` cancels any currently running job or workflow in the same concurrency group.
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+
+jobs:
+  check-links:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # This step uses the `trilom` action to gather all the changed files. 
+      # In this example, this step creates the file "${{ env.HOME }}/files.json", among others.
+      - name: Gather files changed
+        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
+        with:
+          fileOutput: 'json'
+
+      # To help with verification, this step lists the contents of `files.json`. 
+      # This will be visible in the workflow run's log, and can be useful for debugging.
+      - name: Show files changed
+        run: cat $HOME/files.json
+
+
+      # This step executes a script in the repository at `script/rendered-content-link-checker.mjs` 
+      # and passes all the parameters it needs to run.
+      - name: Link check (warnings, changed files)
+        run: |
+          ./script/rendered-content-link-checker.mjs \
+            --language en \
+            --max 100 \
+            --check-anchors \
+            --check-images \
+            --verbose \
+            --list $HOME/files.json
+
+            
